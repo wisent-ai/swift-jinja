@@ -1,3 +1,5 @@
+import Foundation
+
 /// Tokenizes Jinja template source code into a sequence of tokens.
 
 public enum Lexer: Sendable {
@@ -107,6 +109,12 @@ public enum Lexer: Sendable {
         return pos
     }
 
+    private static func regexReplace(_ input: String, pattern: String, template: String) -> String {
+        let regex = try! NSRegularExpression(pattern: pattern)
+        let range = NSRange(input.startIndex..., in: input)
+        return regex.stringByReplacingMatches(in: input, range: range, withTemplate: template)
+    }
+
     private static func preprocess(_ template: String) -> String {
         // Optimized preprocessing with single pass
         var result = template
@@ -115,31 +123,25 @@ public enum Lexer: Sendable {
 
         // Note: We must avoid merging a literal '{' with the delimiter.
         // For example, "{<newline>{%-" should become "{ {%" not "{{%" (which would be parsed as "{{" + "%").
-        // Since Swift Regex doesn't support lookbehind
-        // (see https://github.com/swiftlang/swift-evolution/blob/main/proposals/0448-regex-lookbehind-assertions.md),
-        // we use a multi-step approach:
+        // We use a multi-step approach:
 
         // 1. Handle closing delimiters (these don't have the merging issue)
-        result = result.replacing(#/-%}\s*/#, with: "%}")
-        result = result.replacing(#/-}}\s*/#, with: "}}")
+        result = regexReplace(result, pattern: "-%\\}\\s*", template: "%}")
+        result = regexReplace(result, pattern: "-\\}\\}\\s*", template: "}}")
 
         // 2. For opening delimiters, we need to be careful about preceding '{'
         // When preceded by '{', we keep a single space to prevent token merging.
         // When preceded by other characters, we strip the whitespace entirely.
 
         // Handle {%- : if preceded by '{', keep one space; otherwise strip whitespace
-        result = result.replacing(#/\{\s+\{%-/#, with: "{ {%")
-        result = result.replacing(#/([^\{])\s*\{%-/#) { match in
-            "\(match.1){%"
-        }
-        result = result.replacing(#/^\s*\{%-/#, with: "{%")
+        result = regexReplace(result, pattern: "\\{\\s+\\{%-", template: "{ {%")
+        result = regexReplace(result, pattern: "([^\\{])\\s*\\{%-", template: "$1{%")
+        result = regexReplace(result, pattern: "^\\s*\\{%-", template: "{%")
 
         // Handle {{- : if preceded by '{', keep one space; otherwise strip whitespace
-        result = result.replacing(#/\{\s+\{\{-/#, with: "{ {{")
-        result = result.replacing(#/([^\{])\s*\{\{-/#) { match in
-            "\(match.1){{"
-        }
-        result = result.replacing(#/^\s*\{\{-/#, with: "{{")
+        result = regexReplace(result, pattern: "\\{\\s+\\{\\{-", template: "{ {{")
+        result = regexReplace(result, pattern: "([^\\{])\\s*\\{\\{-", template: "$1{{")
+        result = regexReplace(result, pattern: "^\\s*\\{\\{-", template: "{{")
 
         return result
     }

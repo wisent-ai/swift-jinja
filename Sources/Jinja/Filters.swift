@@ -754,8 +754,8 @@ public enum Filters {
             defaults: [:]
         )
 
-        let htmlTags = /<[^>]+>/.ignoresCase()
-        let noTags = str.replacing(htmlTags, with: "")
+        let htmlTagsRegex = try! NSRegularExpression(pattern: "<[^>]+>", options: .caseInsensitive)
+        let noTags = htmlTagsRegex.stringByReplacingMatches(in: str, range: NSRange(str.startIndex..., in: str), withTemplate: "")
         let components = noTags.components(separatedBy: .whitespacesAndNewlines)
         return .string(components.filter { !$0.isEmpty }.joined(separator: " "))
     }
