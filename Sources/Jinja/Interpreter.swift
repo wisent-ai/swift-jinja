@@ -4,7 +4,7 @@ import Foundation
 // MARK: - Context
 
 /// A context is a dictionary of variables and their values.
-@available(iOS 16, macOS 13, *)
+
 public typealias Context = [String: Value]
 
 // MARK: - Environment
@@ -13,7 +13,7 @@ public typealias Context = [String: Value]
 ///
 /// The environment maintains the variable scope during template execution and provides
 /// configuration options that affect rendering behavior.
-@available(iOS 16, macOS 13, *)
+
 public final class Environment: @unchecked Sendable {
     private let parent: Environment?
     private(set) var variables: [String: Value] = [:]
@@ -109,7 +109,7 @@ enum ControlFlow: Error, Sendable {
 }
 
 /// Executes parsed Jinja template nodes to produce rendered output.
-@available(iOS 16, macOS 13, *)
+
 public enum Interpreter {
     /// Interprets nodes and renders them to a string using the given environment.
     ///

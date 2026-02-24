@@ -3,7 +3,7 @@
 /// Macros allow you to define reusable template fragments that can accept parameters
 /// and generate dynamic content. They're useful for creating template components
 /// and reducing code duplication.
-@available(iOS 16, macOS 13, *)
+
 public struct Macro: Hashable, Sendable {
     /// The name of the macro.
     public let name: String
@@ -39,7 +39,7 @@ public struct Macro: Hashable, Sendable {
 
 // MARK: - Codable
 
-@available(iOS 16, macOS 13, *)
+
 extension Macro: Codable {
     private enum CodingKeys: String, CodingKey {
         case name, parameters, defaults, body

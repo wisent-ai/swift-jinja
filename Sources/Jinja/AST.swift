@@ -2,7 +2,7 @@ import Foundation
 import OrderedCollections
 
 /// A node in the abstract syntax tree representing template content.
-@available(iOS 16, macOS 13, *)
+
 public indirect enum Node: Hashable, Codable, Sendable {
     /// Plain text content to be output directly.
     case text(String)
@@ -18,7 +18,7 @@ public indirect enum Node: Hashable, Codable, Sendable {
 }
 
 /// An expression that can be evaluated to produce a value.
-@available(iOS 16, macOS 13, *)
+
 public indirect enum Expression: Hashable, Codable, Sendable {
     /// String literal value.
     case string(String)
@@ -152,7 +152,7 @@ public indirect enum Expression: Hashable, Codable, Sendable {
 }
 
 /// A control flow statement that affects template execution.
-@available(iOS 16, macOS 13, *)
+
 public enum Statement: Hashable, Codable, Sendable {
     /// Block of nodes to execute sequentially.
     case program([Node])

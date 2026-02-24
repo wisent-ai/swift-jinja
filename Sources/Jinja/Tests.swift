@@ -3,7 +3,7 @@
 /// Tests are used with the `is` operator to check conditions about values.
 /// All test functions return a Boolean result and follow the same signature pattern,
 /// accepting an array of values, optional keyword arguments, and an environment.
-@available(iOS 16, macOS 13, *)
+
 public enum Tests {
     // MARK: - Basic Tests
 

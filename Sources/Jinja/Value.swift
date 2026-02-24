@@ -5,7 +5,7 @@ import Foundation
 ///
 /// Values are the runtime representation of data in Jinja templates,
 /// supporting various types including primitives, collections, and callable objects.
-@available(iOS 16, macOS 13, *)
+
 public enum Value: Sendable {
     /// Null value representing absence of data.
     case null
@@ -429,7 +429,7 @@ public enum Value: Sendable {
 
 // MARK: - CustomStringConvertible
 
-@available(iOS 16, macOS 13, *)
+
 extension Value: CustomStringConvertible {
     /// String representation of the value for template output.
     public var description: String {
@@ -460,7 +460,7 @@ extension Value: CustomStringConvertible {
 
 // MARK: - Equatable
 
-@available(iOS 16, macOS 13, *)
+
 extension Value: Equatable {
     /// Compares two values for equality.
     public static func == (lhs: Value, rhs: Value) -> Bool {
@@ -482,7 +482,7 @@ extension Value: Equatable {
 
 // MARK: - Hashable
 
-@available(iOS 16, macOS 13, *)
+
 extension Value: Hashable {
     /// Hashes the value into the given hasher.
     public func hash(into hasher: inout Hasher) {
@@ -503,7 +503,7 @@ extension Value: Hashable {
 
 // MARK: - Encodable
 
-@available(iOS 16, macOS 13, *)
+
 extension Value: Encodable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
@@ -545,7 +545,7 @@ extension Value: Encodable {
 
 // MARK: - Decodable
 
-@available(iOS 16, macOS 13, *)
+
 extension Value: Decodable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
@@ -584,7 +584,7 @@ extension Value: Decodable {
 
 // MARK: - ExpressibleByNilLiteral
 
-@available(iOS 16, macOS 13, *)
+
 extension Value: ExpressibleByNilLiteral {
     public init(nilLiteral: ()) {
         self = .null
@@ -593,7 +593,7 @@ extension Value: ExpressibleByNilLiteral {
 
 // MARK: - ExpressibleByBooleanLiteral
 
-@available(iOS 16, macOS 13, *)
+
 extension Value: ExpressibleByBooleanLiteral {
     public init(booleanLiteral value: Bool) {
         self = .boolean(value)
@@ -602,7 +602,7 @@ extension Value: ExpressibleByBooleanLiteral {
 
 // MARK: - ExpressibleByIntegerLiteral
 
-@available(iOS 16, macOS 13, *)
+
 extension Value: ExpressibleByIntegerLiteral {
     public init(integerLiteral value: Int) {
         self = .int(value)
@@ -611,7 +611,7 @@ extension Value: ExpressibleByIntegerLiteral {
 
 // MARK: - ExpressibleByFloatLiteral
 
-@available(iOS 16, macOS 13, *)
+
 extension Value: ExpressibleByFloatLiteral {
     public init(floatLiteral value: Double) {
         self = .double(value)
@@ -620,7 +620,7 @@ extension Value: ExpressibleByFloatLiteral {
 
 // MARK: - ExpressibleByStringLiteral
 
-@available(iOS 16, macOS 13, *)
+
 extension Value: ExpressibleByStringLiteral {
     public init(stringLiteral value: String) {
         self = .string(value)
@@ -629,7 +629,7 @@ extension Value: ExpressibleByStringLiteral {
 
 // MARK: - ExpressibleByArrayLiteral
 
-@available(iOS 16, macOS 13, *)
+
 extension Value: ExpressibleByArrayLiteral {
     public init(arrayLiteral elements: Value...) {
         self = .array(elements)
@@ -638,7 +638,7 @@ extension Value: ExpressibleByArrayLiteral {
 
 // MARK: - ExpressibleByDictionaryLiteral
 
-@available(iOS 16, macOS 13, *)
+
 extension Value: ExpressibleByDictionaryLiteral {
     public init(dictionaryLiteral elements: (String, Value)...) {
         var dict = OrderedDictionary<String, Value>()

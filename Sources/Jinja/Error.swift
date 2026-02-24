@@ -1,7 +1,7 @@
 import Foundation
 
 /// Errors that can occur during Jinja template processing.
-@available(iOS 16, macOS 13, *)
+
 public enum JinjaError: LocalizedError {
     /// Error during tokenization of template source.
     case lexer(String)
