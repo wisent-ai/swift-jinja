@@ -14,6 +14,7 @@
 ///   - defaults: A dictionary of default values for optional parameters.
 /// - Returns: A dictionary of resolved argument names and their `Value`.
 /// - Throws: `JinjaError.runtime` if arguments are invalid (e.g., duplicate, unexpected).
+@available(iOS 16, macOS 13, *)
 internal func resolveCallArguments(
     args: [Value],
     kwargs: [String: Value],

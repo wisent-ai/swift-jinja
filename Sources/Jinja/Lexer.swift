@@ -1,4 +1,5 @@
 /// Tokenizes Jinja template source code into a sequence of tokens.
+@available(iOS 16, macOS 13, *)
 public enum Lexer: Sendable {
     private static let keywords: [String: Token.Kind] = [
         "if": .`if`, "else": .`else`, "elif": .elif, "endif": .endif,

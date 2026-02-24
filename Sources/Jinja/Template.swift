@@ -2,6 +2,7 @@ import Foundation
 import OrderedCollections
 
 /// A compiled Jinja template that can be rendered with context data.
+@available(iOS 16, macOS 13, *)
 public struct Template: Hashable, Sendable {
     /// Configuration options for template parsing and rendering behavior.
     public struct Options: Hashable, Sendable {

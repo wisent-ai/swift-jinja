@@ -5,6 +5,7 @@ import Foundation
 ///
 /// This provides dot-notation property access functionality for various value types,
 /// such as string methods (`str.upper()`), object properties, and built-in methods.
+@available(iOS 16, macOS 13, *)
 public enum PropertyMembers {
     /// Evaluates property member access on a value.
     ///
@@ -223,6 +224,7 @@ public enum PropertyMembers {
 ///   - separator: The separator to split on (nil for whitespace)
 ///   - limit: Maximum number of splits to perform (nil for unlimited)
 /// - Returns: Array of string components
+@available(iOS 16, macOS 13, *)
 private func split(string: String, separator: String?, limit: Int?) -> [String] {
     if let separator = separator {
         if let limit = limit {
@@ -255,6 +257,7 @@ private func split(string: String, separator: String?, limit: Int?) -> [String] 
 ///   - new: The replacement string
 ///   - maxReplacements: Maximum number of replacements (nil for unlimited)
 /// - Returns: The string with replacements made
+@available(iOS 16, macOS 13, *)
 private func replace(string: String, old: String, new: String, maxReplacements: Int?)
     -> String
 {

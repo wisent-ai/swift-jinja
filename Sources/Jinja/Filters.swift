@@ -5,6 +5,7 @@ import Foundation
 /// Filters transform values in template expressions using the pipe syntax (`|`).
 /// All filter functions follow the same signature pattern, accepting an array of values
 /// (with the filtered value as the first element), optional keyword arguments, and an environment.
+@available(iOS 16, macOS 13, *)
 public enum Filters {
     // MARK: - Basic String Filters
 

@@ -2,6 +2,7 @@
 ///
 /// Tokens represent the smallest meaningful units of a Jinja template,
 /// such as keywords, operators, literals, and delimiters.
+@available(iOS 16, macOS 13, *)
 public struct Token: Hashable, Sendable {
     /// The specific type of token representing different syntactic elements.
     public enum Kind: CaseIterable, Hashable, Codable, Sendable {
@@ -153,6 +154,7 @@ public struct Token: Hashable, Sendable {
 
 // MARK: - Codable
 
+@available(iOS 16, macOS 13, *)
 extension Token: Codable {
     private enum CodingKeys: String, CodingKey {
         case kind, value, position
