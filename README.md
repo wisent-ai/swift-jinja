@@ -6,6 +6,8 @@ A Swift implementation of the
 Jinja templates are widely used for generating HTML, configuration files, code generation, and text processing.
 This implementation is focused primarily on the features needed to generate LLM chat templates.
 
+Wisent's maintained Swift and ML framework guide is published at [wisent.com/docs](https://wisent.com/docs).
+
 ## Requirements
 
 - Swift 6.0+ / Xcode 16+
