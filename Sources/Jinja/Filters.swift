@@ -6,6 +6,17 @@ import Foundation
 /// All filter functions follow the same signature pattern, accepting an array of values
 /// (with the filtered value as the first element), optional keyword arguments, and an environment.
 public enum Filters {
+    /// Defaults the Jinja filters share with the Python reference: wordwrap width, truncate length and leeway,
+    /// the int filter's base and the largest radix Int accepts, and the last ASCII code unit.
+    static let wordwrapWidth = 79
+    static let truncateLength = 255
+    static let truncateLeeway = 5
+    static let decimalBase = 10
+    static let binaryRadix = 2
+    static let octalRadix = 8
+    static let hexRadix = 16
+    static let maxRadix = 36
+    static let lastASCII: UInt16 = 127
     // MARK: - Basic String Filters
 
     /// Converts a string to uppercase.
@@ -832,7 +843,7 @@ public enum Filters {
         if case let .int(w) = arguments["width"] {
             width = w
         } else {
-            width = 79
+            width = wordwrapWidth
         }
         let breakLongWords = arguments["break_long_words"]!.isTruthy
         let breakOnHyphens = arguments["break_on_hyphens"]!.isTruthy
@@ -1118,7 +1129,7 @@ public enum Filters {
         result.reserveCapacity(string.utf16.count)
         // Iterate UTF-16 code units so non-BMP scalars emit surrogate pairs.
         for codeUnit in string.utf16 {
-            if codeUnit > 127 {
+            if codeUnit > lastASCII {
                 result += String(format: "\\u%04x", codeUnit)
             } else if let scalar = UnicodeScalar(codeUnit) {
                 result.append(Character(scalar))
@@ -1257,7 +1268,7 @@ public enum Filters {
         if case let .int(value) = arguments["base"] {
             base = value
         } else {
-            base = 10
+            base = decimalBase
         }
 
         switch value {
@@ -1269,20 +1280,20 @@ public enum Filters {
             let trimmed = s.trimmingCharacters(in: .whitespacesAndNewlines)
             if trimmed.hasPrefix("0b") || trimmed.hasPrefix("0B") {
                 let digits = String(trimmed.dropFirst(2))
-                if let converted = Int(digits, radix: 2) { return .int(converted) }
+                if let converted = Int(digits, radix: binaryRadix) { return .int(converted) }
                 return defaultValue
             }
             if trimmed.hasPrefix("0o") || trimmed.hasPrefix("0O") {
                 let digits = String(trimmed.dropFirst(2))
-                if let converted = Int(digits, radix: 8) { return .int(converted) }
+                if let converted = Int(digits, radix: octalRadix) { return .int(converted) }
                 return defaultValue
             }
             if trimmed.hasPrefix("0x") || trimmed.hasPrefix("0X") {
                 let digits = String(trimmed.dropFirst(2))
-                if let converted = Int(digits, radix: 16) { return .int(converted) }
+                if let converted = Int(digits, radix: hexRadix) { return .int(converted) }
                 return defaultValue
             }
-            if base != 10, (2 ... 36).contains(base), let converted = Int(trimmed, radix: base) {
+            if base != decimalBase, (binaryRadix ... maxRadix).contains(base), let converted = Int(trimmed, radix: base) {
                 return .int(converted)
             }
             if let converted = Int(trimmed) {
@@ -1692,7 +1703,7 @@ public enum Filters {
         if case let .int(l) = arguments["length"]! {
             length = l
         } else {
-            length = 255
+            length = truncateLength
         }
 
         let killwords = arguments["killwords"]!.isTruthy
@@ -1701,7 +1712,7 @@ public enum Filters {
         if case let .int(value) = arguments["leeway"]! {
             leeway = Swift.max(0, value)
         } else {
-            leeway = 5
+            leeway = truncateLeeway
         }
 
         let end: String
