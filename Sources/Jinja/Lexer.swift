@@ -11,6 +11,7 @@ public enum Lexer: Sendable {
         "true": .boolean, "false": .boolean,
         "null": .null, "none": .null,
         "break": .`break`, "continue": .`continue`,
+        "do": .`do`,
         "call": .call, "endcall": .endcall,
         "filter": .filter, "endfilter": .endfilter,
         "generation": .generation, "endgeneration": .endgeneration,

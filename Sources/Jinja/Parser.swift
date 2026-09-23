@@ -126,6 +126,9 @@ public struct Parser: Sendable {
             advance()
             try consume(.closeStatement, message: "Expected '%}' after continue.")
             return .continue
+        case .do:
+            advance()
+            return try parseDoStatement()
         case .call:
             advance()
             return try parseCallStatement()
@@ -303,6 +306,12 @@ public struct Parser: Sendable {
         try consume(.closeStatement, message: "Expected '%}' after endgeneration.")
 
         return .generation(body)
+    }
+
+    private mutating func parseDoStatement() throws -> Statement {
+        let expr = try parseExpression()
+        try consume(.closeStatement, message: "Expected '%}' after do expression.")
+        return .do(expr)
     }
 
     // MARK: - Expression Parsing

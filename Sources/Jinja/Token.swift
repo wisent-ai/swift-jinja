@@ -112,6 +112,8 @@ public struct Token: Hashable, Sendable {
         case `break`
         /// Loop control keyword `continue`.
         case `continue`
+        /// Expression statement keyword `do`.
+        case `do`
         /// Call block keyword `call`.
         case call
         /// End of call block keyword `endcall`.
