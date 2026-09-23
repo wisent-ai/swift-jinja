@@ -5,6 +5,7 @@ import Foundation
 /// Filters transform values in template expressions using the pipe syntax (`|`).
 /// All filter functions follow the same signature pattern, accepting an array of values
 /// (with the filtered value as the first element), optional keyword arguments, and an environment.
+
 public enum Filters {
     /// Defaults the Jinja filters share with the Python reference: wordwrap width, truncate length and leeway,
     /// the int filter's base and the largest radix Int accepts, and the last ASCII code unit.
@@ -764,8 +765,8 @@ public enum Filters {
             defaults: [:]
         )
 
-        let htmlTags = /<[^>]+>/.ignoresCase()
-        let noTags = str.replacing(htmlTags, with: "")
+        let htmlTagsRegex = try! NSRegularExpression(pattern: "<[^>]+>", options: .caseInsensitive)
+        let noTags = htmlTagsRegex.stringByReplacingMatches(in: str, range: NSRange(str.startIndex..., in: str), withTemplate: "")
         let components = noTags.components(separatedBy: .whitespacesAndNewlines)
         return .string(components.filter { !$0.isEmpty }.joined(separator: " "))
     }

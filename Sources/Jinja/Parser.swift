@@ -5,6 +5,7 @@ import OrderedCollections
 ///
 /// The parser takes a sequence of tokens from the lexer and builds an abstract syntax tree
 /// that represents the structure and semantics of the template.
+
 public struct Parser: Sendable {
     private let tokens: [Token]
     private var current: Int = 0
@@ -751,6 +752,7 @@ public struct Parser: Sendable {
 }
 
 // MARK: -
+
 
 extension Token.Kind {
     fileprivate static let allowedAsIdentifier: Set<Token.Kind> = [

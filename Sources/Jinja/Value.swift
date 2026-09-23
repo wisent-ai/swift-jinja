@@ -5,6 +5,7 @@ import Foundation
 ///
 /// Values are the runtime representation of data in Jinja templates,
 /// supporting various types including primitives, collections, and callable objects.
+
 public enum Value: Sendable {
     /// Null value representing absence of data.
     case null
@@ -428,6 +429,7 @@ public enum Value: Sendable {
 
 // MARK: - CustomStringConvertible
 
+
 extension Value: CustomStringConvertible {
     /// String representation of the value for template output.
     public var description: String {
@@ -458,6 +460,7 @@ extension Value: CustomStringConvertible {
 
 // MARK: - Equatable
 
+
 extension Value: Equatable {
     /// Compares two values for equality.
     public static func == (lhs: Value, rhs: Value) -> Bool {
@@ -479,6 +482,7 @@ extension Value: Equatable {
 
 // MARK: - Hashable
 
+
 extension Value: Hashable {
     /// Hashes the value into the given hasher.
     public func hash(into hasher: inout Hasher) {
@@ -498,6 +502,7 @@ extension Value: Hashable {
 }
 
 // MARK: - Encodable
+
 
 extension Value: Encodable {
     public func encode(to encoder: Encoder) throws {
@@ -540,6 +545,7 @@ extension Value: Encodable {
 
 // MARK: - Decodable
 
+
 extension Value: Decodable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
@@ -578,6 +584,7 @@ extension Value: Decodable {
 
 // MARK: - ExpressibleByNilLiteral
 
+
 extension Value: ExpressibleByNilLiteral {
     public init(nilLiteral: ()) {
         self = .null
@@ -585,6 +592,7 @@ extension Value: ExpressibleByNilLiteral {
 }
 
 // MARK: - ExpressibleByBooleanLiteral
+
 
 extension Value: ExpressibleByBooleanLiteral {
     public init(booleanLiteral value: Bool) {
@@ -594,6 +602,7 @@ extension Value: ExpressibleByBooleanLiteral {
 
 // MARK: - ExpressibleByIntegerLiteral
 
+
 extension Value: ExpressibleByIntegerLiteral {
     public init(integerLiteral value: Int) {
         self = .int(value)
@@ -601,6 +610,7 @@ extension Value: ExpressibleByIntegerLiteral {
 }
 
 // MARK: - ExpressibleByFloatLiteral
+
 
 extension Value: ExpressibleByFloatLiteral {
     public init(floatLiteral value: Double) {
@@ -610,6 +620,7 @@ extension Value: ExpressibleByFloatLiteral {
 
 // MARK: - ExpressibleByStringLiteral
 
+
 extension Value: ExpressibleByStringLiteral {
     public init(stringLiteral value: String) {
         self = .string(value)
@@ -618,6 +629,7 @@ extension Value: ExpressibleByStringLiteral {
 
 // MARK: - ExpressibleByArrayLiteral
 
+
 extension Value: ExpressibleByArrayLiteral {
     public init(arrayLiteral elements: Value...) {
         self = .array(elements)
@@ -625,6 +637,7 @@ extension Value: ExpressibleByArrayLiteral {
 }
 
 // MARK: - ExpressibleByDictionaryLiteral
+
 
 extension Value: ExpressibleByDictionaryLiteral {
     public init(dictionaryLiteral elements: (String, Value)...) {

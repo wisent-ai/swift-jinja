@@ -1,6 +1,7 @@
 import Foundation
 
 /// Errors that can occur during Jinja template processing.
+
 public enum JinjaError: LocalizedError {
     /// Error during tokenization of template source.
     case lexer(String)

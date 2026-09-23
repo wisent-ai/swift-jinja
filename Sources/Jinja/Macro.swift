@@ -3,6 +3,7 @@
 /// Macros allow you to define reusable template fragments that can accept parameters
 /// and generate dynamic content. They're useful for creating template components
 /// and reducing code duplication.
+
 public struct Macro: Hashable, Sendable {
     /// The name of the macro.
     public let name: String
@@ -37,6 +38,7 @@ public struct Macro: Hashable, Sendable {
 }
 
 // MARK: - Codable
+
 
 extension Macro: Codable {
     private enum CodingKeys: String, CodingKey {

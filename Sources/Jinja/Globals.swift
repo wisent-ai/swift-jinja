@@ -1,6 +1,7 @@
 import Foundation
 
 /// An exception that can be raised in Jinja templates with `raise_exception`.
+
 public struct TemplateException: Error {
     /// The message of the exception, if any.
     var message: String?
@@ -9,6 +10,7 @@ public struct TemplateException: Error {
 // MARK: - Globals
 
 /// Built-in global functions available in the Jinja environment.
+
 public enum Globals: Sendable {
     public static let builtIn: [String: Value] = [
         "raise_exception": .function(raiseException),
